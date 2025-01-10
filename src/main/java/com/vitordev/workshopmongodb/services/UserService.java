@@ -1,6 +1,7 @@
 package com.vitordev.workshopmongodb.services;
 
 import com.vitordev.workshopmongodb.domain.User;
+import com.vitordev.workshopmongodb.dto.UserDTO;
 import com.vitordev.workshopmongodb.repository.UserRepository;
 import com.vitordev.workshopmongodb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,14 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = userRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public User insert(User user) {
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDto) {
+        User user = new User(userDto.getId(), userDto.getName(), userDto.getEmail());
+        return user;
     }
 }
