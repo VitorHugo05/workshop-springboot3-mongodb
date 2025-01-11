@@ -1,5 +1,6 @@
 package com.vitordev.workshopmongodb.resources;
 
+import com.vitordev.workshopmongodb.domain.Post;
 import com.vitordev.workshopmongodb.domain.User;
 import com.vitordev.workshopmongodb.dto.UserDTO;
 import com.vitordev.workshopmongodb.services.UserService;
@@ -53,4 +54,11 @@ public class UserResource {
         userService.update(user);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
+    }
+
 }
